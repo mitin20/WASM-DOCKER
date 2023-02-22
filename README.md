@@ -15,6 +15,7 @@ tar xvf wasi-sdk-16.0-macos.tar.gz
 
 # Create a simple “Hello, Wasm” C Program.
 
+```c
  /* C program to print Hello Wasm! */
 
 #include <stdio.h>
@@ -23,6 +24,7 @@ int main() {
    printf("Hello, Wasm!");
    return 0;
 }
+```
 
 # Create a WASM module using WASI SDK
 
