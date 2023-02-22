@@ -29,7 +29,8 @@ int main() {
  export WASI_SDK_PATH=`pwd`/wasi-sdk-16.0
 CC="${WASI_SDK_PATH}/bin/clang"
 $CC hello-world.c -o hello-world.wasm
-Verifying the file type
+
+# Verifying the file type
 
 file hello-world.wasm 
 hello-world.wasm: WebAssembly (wasm) binary module version 0x1 (MVP)
