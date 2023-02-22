@@ -15,7 +15,8 @@ tar xvf wasi-sdk-16.0-macos.tar.gz
 
 # Create a simple “Hello, Wasm” C Program.
 
-```c
+```bash
+cat << EOF> hello-world.c
  /* C program to print Hello Wasm! */
 
 #include <stdio.h>
@@ -24,13 +25,19 @@ int main() {
    printf("Hello, Wasm!");
    return 0;
 }
+EOF
 ```
+
+# Run program
+xcode-select --install
+gcc -Wall -o program hello-world.c
+./program
 
 # Create a WASM module using WASI SDK
 
- export WASI_SDK_PATH=`pwd`/wasi-sdk-16.0
+export WASI_SDK_PATH=`pwd`/wasi-sdk-16.0
 CC="${WASI_SDK_PATH}/bin/clang"
-$CC hello-world.c -o hello-world.wasm
+CC hello-world.c -o hello-world.wasm
 
 # Verifying the file type
 
@@ -38,6 +45,16 @@ file hello-world.wasm
 hello-world.wasm: WebAssembly (wasm) binary module version 0x1 (MVP)
 
 # Build a Docker Image
+
+```bash
+cat << EOF> Dockerfile
+# syntax=docker/dockerfile:1
+FROM scratch
+COPY hello_world.wasm /hello_world.wasm
+ENTRYPOINT [ "hello_world.wasm" ]
+EOF
+```
+
 
 docker buildx build . --file=Dockerfile --tag=ajeetraina/hello-wasm-docker --platform wasi/wasm32
 
