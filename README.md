@@ -50,17 +50,17 @@ hello-world.wasm: WebAssembly (wasm) binary module version 0x1 (MVP)
 cat << EOF> Dockerfile
 # syntax=docker/dockerfile:1
 FROM scratch
-COPY hello_world.wasm /hello_world.wasm
-ENTRYPOINT [ "hello_world.wasm" ]
+COPY hello-world.wasm /hello-world.wasm
+ENTRYPOINT [ "hello-world.wasm" ]
 EOF
 ```
 
 
-docker buildx build . --file=Dockerfile --tag=ajeetraina/hello-wasm-docker --platform wasi/wasm32
+docker buildx build . --file=Dockerfile --tag=mitin20/hello-wasm-docker --platform wasi/wasm32
 
 # Running the Wasm-based Docker Image
 
-docker run --runtime=io.containerd.wasmedge.v1 --platform=wasi/wasm32 ajeetraina/hello-wasm-docker
+docker run --runtime=io.containerd.wasmedge.v1 --platform=wasi/wasm32 mitin20/hello-wasm-docker
 
 # Emscripten
 ref: https://emscripten.org/docs/getting_started/Tutorial.html
